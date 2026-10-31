@@ -1,6 +1,7 @@
 
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const { Pool } = require("pg");
 require("dotenv").config();
 
@@ -11,12 +12,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Connect to Supabase PostgreSQL
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
+        ca: fs.readFileSync(
+            path.join(__dirname, "certs", "prod-ca-2021.crt"),
+            "utf8"
+        ),
         rejectUnauthorized: true
     }
 });
+
 
 // Serve the public website
 app.use(express.static(path.join(__dirname, "public")));
