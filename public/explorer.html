@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Explore career opportunities with CareerPath Finder.">
+
+    <title>Career Explorer | CareerPath Finder</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        /* General Website Design */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #B8DCFF;
+            color: #073B80;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: #073B80;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #073B80,
+                #0756B8,
+                #168BFA
+            );
+
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        /* Career Section */
+        .career-section {
+            padding: 50px 20px;
+        }
+
+        /* Career Cards */
+        .career-card {
+            background-color: #EAF5FF;
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+            transition: transform 0.3s ease;
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .career-card h3 {
+            color: #073B80;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Career Images */
+        .career-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Search Area */
+        .search-panel {
+            background-color: #EAF5FF;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+        }
+
+        /* Buttons */
+        .btn-career {
+            background-color: #168BFA;
+            color: white;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .btn-career:hover {
+            background-color: #0756B8;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #073B80;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="index.html">
+                CareerPath Finder
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">
+                            Career Quiz
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">
+                            Career Results
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           aria-current="page"
+                           href="explorer.html">
+                            Career Explorer
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Career Explorer Header -->
+    <header class="hero">
+
+        <div class="container">
+
+            <h1 class="display-4 fw-bold">
+                Career Explorer
+            </h1>
+
+            <p class="lead">
+                Explore exciting career opportunities and discover
+                the education and skills needed for your future.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Content -->
+    <main>
+
+        <section class="career-section">
+
+            <div class="container">
+
+                <h2 class="text-center mb-4">
+                    Explore Career Opportunities
+                </h2>
+
+                <p class="text-center mb-5">
+                    Discover different career fields and find
+                    opportunities that match your interests,
+                    strengths, and educational goals.
+                </p>
+
+
+                <!-- Search and Filter -->
+                <div class="search-panel">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-7">
+
+                            <label for="careerSearch"
+                                   class="form-label fw-bold">
+                                Search Careers
+                            </label>
+
+                            <input
+                                type="search"
+                                class="form-control"
+                                id="careerSearch"
+                                placeholder="Search careers, skills, or interests">
+
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <label for="categoryFilter"
+                                   class="form-label fw-bold">
+                                Career Category
+                            </label>
+
+                            <select class="form-select"
+                                    id="categoryFilter">
+
+                                <option value="">
+                                    All Categories
+                                </option>
+
+                                <option value="Education">
+                                    Education
+                                </option>
+
+                                <option value="Healthcare">
+                                    Healthcare
+                                </option>
+
+                                <option value="Technology">
+                                    Technology
+                                </option>
+
+                                <option value="Public Safety">
+                                    Public Safety
+                                </option>
+
+                                <option value="Business">
+                                    Business
+                                </option>
+
+                                <option value="Skilled Trades">
+                                    Skilled Trades
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Career Cards -->
+                <div class="row g-4" id="careerList">
+
+
+                    <!-- Education -->
+                    <div class="col-md-4 career-item"
+                         data-category="Education">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/education.jpg"
+                                alt="Teacher working with students"
+                                class="career-image">
+
+                            <h3>Education</h3>
+
+                            <p>
+                                Explore careers focused on teaching,
+                                learning, and supporting students.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Teacher, School Counselor,
+                                Instructional Aide
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Healthcare -->
+                    <div class="col-md-4 career-item"
+                         data-category="Healthcare">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/healthcare.jpg"
+                                alt="Healthcare professional"
+                                class="career-image">
+
+                            <h3>Healthcare</h3>
+
+                            <p>
+                                Help others through medical care,
+                                patient support, and wellness services.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Nurse, Medical Assistant,
+                                Physical Therapist
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Technology -->
+                    <div class="col-md-4 career-item"
+                         data-category="Technology">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/technology.jpg"
+                                alt="Technology professional working with computers"
+                                class="career-image">
+
+                            <h3>Technology</h3>
+
+                            <p>
+                                Discover careers involving computers,
+                                programming, cybersecurity,
+                                and innovation.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Software Developer,
+                                Cybersecurity Analyst,
+                                IT Specialist
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Public Safety -->
+                    <div class="col-md-4 career-item"
+                         data-category="Public Safety">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/public-safety.jpg"
+                                alt="Public safety professional"
+                                class="career-image">
+
+                            <h3>Public Safety</h3>
+
+                            <p>
+                                Explore careers dedicated to protecting
+                                communities, responding to emergencies,
+                                and promoting public safety.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Firefighter, Police Officer,
+                                Emergency Manager
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Business -->
+                    <div class="col-md-4 career-item"
+                         data-category="Business">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/business.jpg"
+                                alt="Business professionals working together"
+                                class="career-image">
+
+                            <h3>Business</h3>
+
+                            <p>
+                                Explore careers in management,
+                                finance, marketing,
+                                leadership, and entrepreneurship.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Business Manager,
+                                Accountant,
+                                Marketing Specialist
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Skilled Trades -->
+                    <div class="col-md-4 career-item"
+                         data-category="Skilled Trades">
+
+                        <div class="career-card">
+
+                            <img
+                                src="images/skilled-trades.jpg"
+                                alt="Skilled trades professional working"
+                                class="career-image">
+
+                            <h3>Skilled Trades</h3>
+
+                            <p>
+                                Discover hands-on careers involving
+                                construction, maintenance,
+                                technical skills, and repair.
+                            </p>
+
+                            <p>
+                                <strong>Examples:</strong>
+                                Electrician, Plumber,
+                                Automotive Technician
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- No Results Message -->
+                <p id="noResults"
+                   class="text-center mt-4 fw-bold"
+                   role="status"
+                   hidden>
+
+                    No career categories match your search.
+
+                </p>
+
+
+                <!-- Career Quiz Button -->
+                <div class="text-center mt-5">
+
+                    <h2>Not Sure Which Career Is Right for You?</h2>
+
+                    <p class="mb-4">
+                        Take our Career Quiz to discover
+                        career paths based on your interests
+                        and personal strengths.
+                    </p>
+
+                    <a href="quiz.html" class="btn btn-career">
+                        Take the Career Quiz
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="container">
+
+            <p>
+                &copy; 2026 CareerPath Finder |
+                Discover Your Future
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- Career Search Functionality -->
+    <script>
+
+        const searchInput =
+            document.getElementById("careerSearch");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+        const careerItems =
+            document.querySelectorAll(".career-item");
+
+        const noResults =
+            document.getElementById("noResults");
+
+
+        function filterCareers() {
+
+            const search =
+                searchInput.value.toLowerCase().trim();
+
+            const category =
+                categoryFilter.value;
+
+            let visibleCount = 0;
+
+
+            careerItems.forEach(item => {
+
+                const text =
+                    item.textContent.toLowerCase();
+
+                const matchesSearch =
+                    text.includes(search);
+
+                const matchesCategory =
+                    category === "" ||
+                    item.dataset.category === category;
+
+                const show =
+                    matchesSearch && matchesCategory;
+
+
+                item.hidden = !show;
+
+                item.style.display =
+                    show ? "" : "none";
+
+
+                if (show) {
+                    visibleCount++;
+                }
+
+            });
+
+
+            noResults.hidden =
+                visibleCount > 0;
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterCareers
+        );
+
+        categoryFilter.addEventListener(
+            "change",
+            filterCareers
+        );
+
+    </script>
+
+</body>
+</html>

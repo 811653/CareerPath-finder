@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore career recommendations with CareerPath Finder.">
+    <title>Career Results | CareerPath Finder</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #B8DCFF;
+            color: #073B80;
+        }
+
+        .navbar {
+            background-color: #073B80;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #073B80, #0756B8, #168BFA);
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .results-section {
+            padding: 60px 20px;
+            min-height: 450px;
+        }
+
+        .career-card {
+            background-color: #EAF5FF;
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .career-card h3 {
+            color: #073B80;
+        }
+
+        .btn-career {
+            background-color: #168BFA;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-career:hover {
+            background-color: #0756B8;
+            color: white;
+        }
+
+        footer {
+            background-color: #073B80;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                CareerPath Finder
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">Career Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="results.html">Career Results</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="explorer.html">Career Explorer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Your Career Results</h1>
+            <p class="lead">
+                Discover career possibilities that match
+                your interests and strengths.
+            </p>
+        </div>
+    </header>
+
+    <!-- Results -->
+    <main>
+        <section class="results-section">
+            <div class="container">
+
+                <h2 class="text-center mb-3">
+                    Explore Your Career Matches
+                </h2>
+
+                <p class="text-center mb-5">
+                    Your questionnaire results will help you
+                    explore possible career pathways.
+                </p>
+
+                <div id="resultsMessage" class="text-center mb-4" role="status" aria-live="polite">
+                    Complete the Career Quiz to receive personalized recommendations.
+                </div>
+
+                <div id="careerResults" class="row g-4"></div>
+
+                <div class="text-center mt-5">
+                    <a href="quiz.html" class="btn btn-career btn-lg">
+                        Take the Career Quiz
+                    </a>
+
+                    <a href="explorer.html" class="btn btn-outline-primary btn-lg ms-2">
+                        Explore All Careers
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CareerPath Finder | Discover Your Future</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    async function loadCareerResults() {
+        const resultsMessage =
+            document.getElementById("resultsMessage");
+
+        const careerResults =
+            document.getElementById("careerResults");
+
+        const accessToken =
+    sessionStorage.getItem("careerAccessToken");
+
+        // Check whether the student completed the quiz
+        if (!accessToken) {
+            resultsMessage.textContent =
+                "You have not completed the Career Quiz yet. Take the quiz to discover potential career matches.";
+            return;
+        }
+
+        resultsMessage.textContent =
+            "Finding your personalized career recommendations...";
+
+        try {
+            // Request recommendations from the Express server
+            const response = await fetch(
+                `/api/results/${encodeURIComponent(accessToken)}`
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.error || "Unable to load career recommendations."
+                );
+            }
+
+            const recommendations = data.recommendations;
+
+            if (!Array.isArray(recommendations) ||
+                recommendations.length === 0) {
+                resultsMessage.textContent =
+                    "No career recommendations are available yet.";
+                return;
+            }
+
+            // Clear previous results
+            careerResults.replaceChildren();
+
+            // Create a card for each recommended career
+            recommendations.forEach((career, index) => {
+                const column = document.createElement("div");
+                column.className = "col-md-6 col-lg-4";
+
+                const card = document.createElement("article");
+                card.className = "career-card";
+
+                const ranking = document.createElement("p");
+                ranking.className = "fw-bold text-primary";
+                ranking.textContent = `Career Match #${index + 1}`;
+
+                const heading = document.createElement("h3");
+                heading.className = "h4 fw-bold";
+                heading.textContent = career.career_name;
+
+                const category = document.createElement("p");
+                category.className = "fw-semibold";
+                category.textContent = `Category: ${career.category}`;
+
+                const score = document.createElement("p");
+                score.className = "badge bg-primary fs-6";
+                score.textContent = `Match Score: ${career.score} / 11`;
+
+                const description = document.createElement("p");
+                description.textContent = career.description;
+
+                const educationHeading = document.createElement("h4");
+                educationHeading.className = "h6 fw-bold";
+                educationHeading.textContent = "Education Required";
+
+                const education = document.createElement("p");
+                education.textContent = career.education_required;
+
+                const skillsHeading = document.createElement("h4");
+                skillsHeading.className = "h6 fw-bold";
+                skillsHeading.textContent = "Important Skills";
+
+                const skills = document.createElement("p");
+                skills.textContent = career.skills;
+
+                const reasonsHeading = document.createElement("h4");
+                reasonsHeading.className = "h6 fw-bold";
+                reasonsHeading.textContent = "Why This Career Matches You";
+
+                const reasonsList = document.createElement("ul");
+
+                if (Array.isArray(career.reasons) &&
+                    career.reasons.length > 0) {
+                    career.reasons.forEach((reason) => {
+                        const item = document.createElement("li");
+                        item.textContent = reason;
+                        reasonsList.appendChild(item);
+                    });
+                } else {
+                    const item = document.createElement("li");
+                    item.textContent =
+                        "Explore this career to learn more about its opportunities.";
+                    reasonsList.appendChild(item);
+                }
+
+                card.append(
+                    ranking,
+                    heading,
+                    category,
+                    score,
+                    description,
+                    educationHeading,
+                    education,
+                    skillsHeading,
+                    skills,
+                    reasonsHeading,
+                    reasonsList
+                );
+
+                column.appendChild(card);
+                careerResults.appendChild(column);
+            });
+
+            resultsMessage.textContent =
+                "Here are your top three career recommendations based on your interests and strengths.";
+
+        } catch (error) {
+            console.error("Results loading error:", error.message);
+
+            resultsMessage.textContent =
+                "Unable to load your career results. Please try completing the quiz again.";
+
+            resultsMessage.className =
+                "alert alert-danger text-center mb-4";
+
+            careerResults.replaceChildren();
+        }
+    }
+
+    loadCareerResults();
+</script>
+
+</body>
+</html>
